@@ -1,0 +1,419 @@
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+
+  .carousel-caption a {
+    color: yellow;
+  }
+
+  .lbt_top {
+    position: absolute;
+    left: 15%;
+    top: 20px;
+    right: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+  }
+
+  .lbt_top span {
+    font-weight: 500;
+    font-size: 32px;
+  }
+
+  .lbt_a {
+    display: block;
+    float: left;
+    position: relative;
+    width: 100%;
+  }
+
+  .flexnav {
+    display: flex;
+    height: 110px;
+    width: 100%;
+    flex-direction: rows;
+    padding-left: 90px;
+    padding-top: 20px;
+  }
+
+  .flexnav_box {
+    width: 13%;
+    height: 70px;
+    border: 1px aliceblue solid;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-left: 10px;
+    position: relative;
+    display: inline-block;
+    color: black;
+    margin-left: 10px;
+  }
+
+  .flexnav_box_p {
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+  .tb {
+    position: absolute;
+    right: 3px;
+    top: 11%;
+    font-size: 44px;
+  }
+
+  .p {
+    font-size: 11px;
+  }
+
+  .flexnav_box:hover {
+    text-decoration: none;
+    border: 1px beige solid;
+    box-shadow: 5px 5px 5px #d6d3d3;
+  }
+
+  .art_cent {
+    padding-left: 56px;
+    box-sizing: border-box;
+    height: 1060px;
+  }
+
+  .art_left {
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  .art_right {
+    height: 100%;
+    position: relative;
+
+  }
+
+  .art_left_cent {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .left_a:hover {
+    text-decoration: none;
+  }
+
+  .art_left_lbt {
+    box-sizing: border-box;
+    height: 250px;
+    margin-top: 10px;
+    position: relative;
+  }
+
+  .left_lbt_dh {
+    top: 37%;
+  }
+
+  .item_p {
+    color: black;
+    font-size: 12px;
+  }
+
+  .item_box {
+    color: black;
+    top: 110px;
+    padding-left: 0;
+    text-align: left;
+    left: 0;
+    text-shadow: none;
+    right: 0;
+  }
+
+  .left_tj {
+    position: relative;
+    padding-left: 5px;
+  }
+
+  .left_tj_bt {
+    position: absolute;
+    left: 5;
+    top: 15px;
+    background-color: brown;
+    height: 24px;
+  }
+
+  .left_tj_bt_jt {
+    position: absolute;
+    top: 15px;
+    left: 75px;
+    width: 0;
+    height: 0;
+    border-width: 12px;
+    border-style: solid;
+    border-color: brown transparent brown brown;
+  }
+
+  .art_left_tj_zx {
+    list-style: none;
+    padding: 0;
+  }
+
+  .art_left_tj_zx li {
+    margin-bottom: 10px;
+  }
+
+  .art_left_tj_zx span {
+    margin-right: 5px;
+  }
+
+  .art_left_tj_zx a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .art_left_tj_zx a:hover {
+    color: orange;
+    text-decoration: underline;
+  }
+
+  .art_left_yc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 右边列 */
+  .art_right_header {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .rmyj {
+    color: orange;
+    font-size: 20px;
+    line-height: 34px;
+    vertical-align: middle;
+  }
+
+  .rmyj:hover {
+    text-decoration: none;
+  }
+
+  .right_btn:hover {
+    background-color: orange;
+  }
+
+  .zxfb {
+    color: black;
+    font-size: 20px;
+    line-height: 34px;
+    vertical-align: middle;
+    margin-left: 30px;
+  }
+
+  .zxfb:hover {
+    color: orange;
+    text-decoration: none;
+  }
+
+  .right_xyj {
+    float: right;
+    background-color: orange;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .right_xyj:hover {
+    background-color: orange;
+  }
+
+  .right_cent {
+    width: 100%;
+    position: relative;
+  }
+  .right_cent_sx{
+    width: 97%;
+    position: absolute;
+    height: 600px;
+    z-index: 999;
+    top: 84px;
+    left: 10px;
+    padding: 30px;
+    background-color: white;
+    box-shadow:  3px 3px 5px #888888;
+    border-radius: 3px;
+  }
+  .right_cent_sx_head{
+    width: 100%;
+    height: 100px;
+  }
+  .sx_head_left{
+    float: left;
+    font-size: 20px;
+  }
+  .sx_head_right{
+    float: left;
+    margin-left: 30px;
+  }
+  #snmae{
+    width: 440px;
+    border: none;
+    height: 40px;
+    border: 1px solid silver;
+    border-radius: 10px;
+  }
+  .sx_head_right_li ul{
+    list-style: none;
+    padding: 0;
+  }
+  .sx_head_right_li ul li{
+  float: left;
+  margin-right: 10px;
+  }
+  .right_li_a{
+    color: black;
+    text-decoration: none;
+  }
+  .right_li_a:hover{
+    color: orange;
+    text-decoration: none;
+  }
+  .right_cent_sx_cent{
+    width: 100%;
+    height: 445px;
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+  .right_cent_sx_cent_right{
+    width: 90%;
+    height: 434px;
+    float: left;
+    margin-left: 20px;
+  }
+  .sx-cent_right_dis{
+    width: 100%;
+    height: 110px;
+  }
+  .dis_left{
+    float: left;
+    width: 48%;
+    padding: 5px;
+    position: relative;
+  }
+  .dis_left_tp{
+    width: 50%;
+    height: 89px;
+    float: left;
+  }
+  .dis_left_nr{
+    float: left;
+    width: 46%;
+    height: 89px;
+    margin-left: 10px;
+  }
+  .dis_left_nr_a{
+    color: black;
+  }
+  .dis_left:hover{
+    background-color: #d6d3d3;
+  }
+  .dis_left:hover .dis_left_nr_a{
+    color: orange;
+    text-decoration: none;
+  }
+  .dis_right{
+    float: left;
+    width: 48%;
+    border: 1px rebeccapurple solid;
+    padding: 5px;
+    position: relative;
+    margin-left: 10px;
+  }
+  .remyj{
+    display: none;
+  }
+  .reght_cent_item {
+    padding: 10px;
+    width: 100%;
+    height: 150px;
+  }
+
+  .reght_cent_item_left {
+    float: left;
+    width: 28%;
+    height: 100%;
+    background-color: white;
+  }
+
+  .cent_item_left_a {
+    display: block;
+  }
+
+  .reght_cent_item_right {
+    float: left;
+    width: 69%;
+    height: 100%;
+    background-color: white;
+    margin-left: 20px;
+    position: relative;
+    padding: 10px;
+  }
+
+  .cent_item_right_a {
+    color: black;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .cent_item_right_a:hover {
+    text-decoration: none;
+    color: orange;
+  }
+
+  .cent_item_right_p {
+    font-size: 12px;
+  }
+
+  .cent_item_right_p_a {
+    color: black;
+  }
+
+  .cent_item_right_p_a:hover {
+    text-decoration: none;
+    color: black;
+  }
+
+  /* .cent_item_right_p_a:hover.cent_item_right_a{
+        text-decoration: none;
+        color: orange;
+      }  
+       不能这样写，空格是后代选择器， */
+
+  .cent_item_right_p:hover+.cent_item_right_a {
+    text-decoration: none;
+    color: orange;
+  }
+
+  .cent_item_right_dz {
+    width: 100%;
+    height: 30px;
+  }
+
+  .item_right_dz_a {
+    color: #d6d3d3;
+    margin-right: 5px;
+  }
+
+  .item_right_dz_a:hover {
+    color: orange;
+  }
+
+  /* 溢出省略号 */
+  .ycslh {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }

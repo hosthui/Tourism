@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource-1.3.4.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="findall">查看所有景区信息</button>
+
+        <table>
+            <tr>
+                <th rowspan="6">景区信息</th>
+            </tr>
+            <tr v-for="(v,i) in items" :key="v.sid"> 
+                <td>{{v.sname}}</td>
+                <td>{{v.address}}</td>
+                <td>{{v.phone}}</td>
+                 <td>{{v.sid}}</td>
+                <td><button @click="findbyid(v.sid)">点击查看详情</button></td>
+                <td><button @click="update(v.sid)">点击修改</button></td>
+                <td><button @click="del(v.sid)">点击删除</button></td>
+                <td><button @click="add">点击添加</button></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                items:'',
+            },
+            methods: {
+            	/* 查询所有 */
+                findall(){
+                	this.$http.get("scenic/findall").then(res=>{
+        				this.items=res.body
+        			})
+                },
+                /* 查询单个 */
+                findbyid(id){
+                    alert("你查看了第"+id+"个酒店");
+                    this.$http.post("scenic/findScenicById",{
+    					"sid": id,
+    			}).then(res=>{
+    				console.log(res.body)
+    				if(res.body.flag==true){
+    					window.location.href="home1.html";
+    				}else{
+    				}
+    			},function(){
+    				alert("报错");
+    			})
+                },
+                /* 修改 */
+                update(id){
+                    alert("你修改了第"+id+"个酒店");
+                    this.$http.post("scenic/updatescenic",{
+                    	"oldid":id,
+                    	"sid":"10010",
+        				"sname":"张家界",
+        				"address":"好地方",
+        				"image":'',
+        				"phone":"13377777",
+        				"introduction":"很好看",
+        				"price":"44"
+        			}).then(res=>{
+        				console.log(res.body)
+        				if(res.body.flag==true){
+        				/* 	alert(res.body.message); */
+        					this.findall();
+//        					window.location.href="welcome.html";
+        				}else{
+        					 alert(res.body.message); 
+        				}
+        			})
+                },
+                del(id){
+                    alert("你删除了第"+id+"个景区");
+        			this.$http.post("scenic/deletescenic",{"sid":id}).then(res=>{
+        				console.log(res.body)
+        				if(res.body.flag==true){
+        					alert("删除成功");
+        					window.location.href="welcome.html";
+        				}else{
+        					 alert(res.body.message); 
+        				}
+        			})
+                },
+                add(){
+                	this.$http.post("scenic/addscenic",{
+                		"sid":"10086",
+        				"sname":"岳麓山",
+        				"address":"长沙",
+        				"image":'',
+        				"phone":"133",
+        				"introduction":"很好",
+        				"price":"44"
+                	}).then(res=>{
+                		console.log(res.body)
+							if(res.body.flag==true){
+								window.location.href="login.html";
+							}else{
+								 alert(res.body.message); 
+							}
+                	})
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

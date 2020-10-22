@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.xhy.tourism.dao.UserMapper">
+
+ <resultMap id="UserMap" type="com.xhy.tourism.entity.User">
+          <id property="uid" column="uid"/>
+          <result property="username" column="username"/>
+          <result property="password" column="password"/>
+          <result property="sex" column="sex"/>
+          <result property="number" column="number"/>
+          <result property="remark" column="remark"/>
+          <result property="admin" column="isAdmin"/>
+   </resultMap>
+   
+ <select id="finAllUsers" resultMap="UserMap">
+    select * from user
+  </select> 
+
+ <select id="findUserByName" resultType="com.xhy.tourism.entity.User">
+     select * from user where username=#{username} and password = #{password} and isAdmin=#{admin}
+  </select>
+
+ <select id="findUserByNameResult" resultType="com.xhy.tourism.entity.User">
+     select * from user where username=#{username} and isAdmin=#{admin}
+  </select>
+
+ <select id="findByName" resultMap="UserMap">
+     select * from user where username=#{username}
+  </select>
+  
+  <insert id="addUser" parameterType="User" keyProperty="uid" useGeneratedKeys="true">
+     insert into user (username,password,remark,sex,number,isAdmin)
+     values(#{username},#{password},#{remark},#{sex},#{number},1)
+  </insert>
+  
+  <delete id="deleteUser" parameterType="int">
+     delete from user where uid=#{uid}
+  </delete>
+  
+   <update id="updateUser" parameterType="User">
+       update user set username=#{username},password=#{password},remark=#{remark},remark=#{remark},
+       sex=#{sex},number=#{number},isAdmin=#{admin}
+       where uid=#{uid}
+  </update>
+  
+   <select id="searchStudentsByPage" resultMap="UserMap" parameterType="java.util.Map">
+   select * from user limit #{startRow},#{PageSize}
+  </select>
+  
+  <select id="findUserByNameLike" resultMap="UserMap" parameterType="String">
+      select * from user where username like '%' #{username} '%'
+  </select>
+  
+</mapper>

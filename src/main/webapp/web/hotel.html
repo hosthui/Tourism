@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource-1.3.4.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="findall">查看所有酒店信息</button>
+
+        <table>
+            <tr>
+                <th rowspan="6">酒店信息</th>
+            </tr>
+            <tr v-for="(v,i) in items" :key="v.hid"> 
+                <td>{{v.hname}}</td>
+                <td>{{v.address}}</td>
+                <td>{{v.phone}}</td>
+                 <td>{{v.hid}}</td>
+                <td><button @click="findbyid(v.hid)">点击查看详情</button></td>
+                <td><button @click="update(v.hid)">点击修改</button></td>
+                <td><button @click="del(v.hid)">点击删除</button></td>
+                <td><button @click="add">点击添加</button></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                items:'',
+                hid:'',
+            },
+            methods: {
+            	/* 查询所有 */
+                findall(){
+                	this.$http.get("hotel/findHotelalls").then(res=>{
+        				this.items=res.body
+        			})
+                },
+                /* 查询单个  */
+                findbyid(id){
+                    alert("你查看了第"+id+"个酒店");
+                    this.hid=id
+                    this.$http.post("hotel/findHotelById",{
+    					"hid": id,
+    			}).then(res=>{
+    				console.log(res.body)
+    				if(res.body.flag==true){
+    					window.location.href="home1.html";
+    				}else{
+    				}
+    			},function(){
+    				alert("报错");
+    			})
+                },
+                /* 修改 */
+                update(id){
+                    alert("你修改了第"+id+"个酒店");
+                    this.$http.post("hotel/updateHlotel",{
+                    	"oldid":id,
+                    	"hid":"10000",
+        				"hname":"被修改的大酒店",
+        				"address":"好地方",
+        				"image":'',
+        				"phone":"133",
+        				"remark":"很好",
+        				"star":"4"
+        			}).then(res=>{
+        				console.log(res.body)
+        				if(res.body.flag==true){
+        					alert(res.body.message);
+        					this.findall();
+//        					window.location.href="welcome.html";
+        				}else{
+        					 alert(res.body.message); 
+        				}
+        			})
+                },
+                /* 删除 */
+                del(id){
+                    alert("你删除了第"+id+"个酒店");
+        			this.$http.post("hotel/delHlotel",{"hid":id}).then(res=>{
+        				console.log(res.body)
+        				if(res.body.flag==true){
+        					alert("删除成功");
+        					window.location.href="welcome.html";
+        				}else{
+        					 alert(res.body.message); 
+        				}
+        			})
+                },
+                /* 添加  */
+                add(){
+                	this.$http.post("hotel/addHlotel",{
+                		"hid":"10086",
+        				"hname":"大酒店",
+        				"address":"长沙望城",
+        				"image":'',
+        				"phone":"135",
+        				"remark":"很漂亮",
+        				"star":"4"
+                	}).then(res=>{
+                		console.log(res.body)
+							if(res.body.flag==true){
+								window.location.href="login.html";
+							}else{
+								 alert(res.body.message); 
+							}
+                	})
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

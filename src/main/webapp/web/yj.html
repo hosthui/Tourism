@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>写游记</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="js/iconfont.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/vue.js" type="text/javascript"></script>
+  <script src="js/vue-resource-1.3.4.js" type="text/javascript"></script>
+  <link href="css/home.css" rel="stylesheet">
+  <style>
+      .box{
+          /* height: 100px; */
+          /* width: 65%; */
+          border: 1px red solid;
+      }
+      .form{
+          width: 45%;
+      }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+      <li class="active"><a href="#">首页</a></li>
+      <li><a href="#">目的地</a></li>
+      <li><a href="#">旅游攻略</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          去旅行<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">自由行</a></li>
+          <li><a href="#">跟团游</a></li>
+          <li><a href="#">当地游</a></li>
+        </ul>
+      </li>
+      <li><a href="#">机票火车票</a></li>
+      <li><a href="#">订酒店</a></li>
+      <li> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          社区<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">问答</a></li>
+          <li><a href="#">周边</a></li>
+          <li><a href="#">结伴</a></li>
+        </ul>
+      </li>
+      <li><a href="web/login.html">登录</a></li>
+      <li><a href="web/register.html">注册</a></li>
+      <li><a href="web/ttt.html">进入后台</a></li>
+    </ul>
+  </header>
+ <article>
+     <div class="container box">
+        <form class="form">
+            <h3>发表游记</h3>
+            <div class="form-group">
+              <label>标题：（最多50个字）</label>
+              <input type="email" class="form-control" v-model="title">
+            </div>
+            <div class="form-group">
+              <label>正文</label>
+              <textarea class="form-control" rows="8" v-model="content"></textarea>
+            </div>
+            <button type="button" class="btn btn-default" style="background-color: orange; color: white;" @click="add">发表</button>
+          </form>
+     </div>
+ </article>
+   <script>
+     var vm = new Vue({
+         el:".box",
+         data:{
+        	 title:'',
+        	 content:'',
+        	 uid:'',
+        	 name:''
+         },
+         methods: {
+             add(){
+            	  var url = window.location.search; 
+            	    if (url.indexOf("?") != -1) {
+            	        this.name = url.substr(6);  
+            	    }
+            	 if(this.title!="null"){
+            		 this.$http.post("message/addmessage",
+            				JSON.stringify({
+            			 "title":this.title,
+            			 "content":this.content,
+            			 "user":this.name
+            		 }),{headers:{'Content-Type': 'application/json;charset=UTF-8'
+           	        }}
+            		 ).then(res=>{
+            			if(res.body.flag){
+            				alert("添加成功");
+            				window.location.href="/Tourism/?name="+this.name;
+            			}else{
+            				alert("添加失败");
+            			}
+            		 })
+            	 }else{
+            		 alert("必须要写标题")
+            	 }
+             }
+         },
+     })
+ </script>
+</body>
+
+</html>

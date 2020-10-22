@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   <mapper namespace="com.xhy.tourism.dao.MessageMapper">
+   
+    <resultMap id="MessageMap" type="com.xhy.tourism.entity.Message">
+          <id property="tid" column="tid"/>
+          <result property="title" column="title"/>
+          <result property="content" column="content"/>
+          <result property="time" column="time"/>
+          <result property="time" column="time"/>
+          <association property="user" javaType="com.xhy.tourism.entity.User">
+          <id property="uid" column="uid"/>
+          <result property="username" column="username"/>
+          </association>
+   </resultMap>
+   
+   <select id="findAll" resultMap="MessageMap">
+    <!-- select * from message -->
+    select message.*,`user`.username from message LEFT JOIN `user` ON message.uid=`user`.uid
+  </select> 
+  
+  <select id="findByName" resultMap="MessageMap">
+    <!-- select * from message where  -->
+  </select> 
+  
+  <insert id="add"  keyProperty="tid" useGeneratedKeys="true">
+     insert into message (uid,content,time,title) 
+     values((SELECT uid from user where username=#{user}),#{content},now(),#{title})
+  </insert>
+  
+  <delete id="del" parameterType="int">
+     delete from message where tid=#{tid}
+  </delete>
+   </mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.xhy.tourism.dao.ScenicMapper">
+   <resultMap id="ScenicMap" type="com.xhy.tourism.entity.Scenic">
+          <id property="sid" column="sid"/>
+          <result property="sname" column="sname"/>
+          <result property="address" column="address"/>
+          <result property="image" column="image"/>
+          <result property="phone" column="phone"/>
+          <result property="introduction" column="introduction"/>
+          <result property="price" column="price"/>
+          <result property="oldid" column="oldid"/>
+   </resultMap>
+  
+  <select id="findall" resultMap="ScenicMap">
+    select * from scenic
+  </select>
+  
+  <select id="findScenicById" resultMap="ScenicMap">
+     select * from scenic where sid=#{sid}
+  </select>
+
+
+
+  <insert id="addScenic" parameterType="Scenic">
+     insert into scenic (sid,sname,address,image,phone,introduction,price)
+     values(#{sid},#{sname},#{address},#{image},#{phone},#{introduction},#{price})
+  </insert>
+  
+  <delete id="deleteScenic" parameterType="String">
+     delete from Scenic where sid=#{sid}
+  </delete>
+  
+   <update id="updateScenic" parameterType="Scenic">
+       update scenic set sid=#{sid},sname=#{sname},address=#{address},image=#{image},
+       phone=#{phone},introduction=#{introduction},price=#{price}
+       where sid=#{oldid}
+  </update>
+  
+  <select id="searchStudentsByPage" resultMap="ScenicMap" parameterType="java.util.Map">
+   select * from scenic limit #{startRow},#{PageSize}
+  </select>
+  <select id="findUserByNameLike" resultMap="ScenicMap" parameterType="Scenic">
+      select * from scenic where sname =  #{sname}  and sid = #{sid}
+  </select>
+  
+   <!-- 模糊查询 地址跟名字 -->
+  <select id="findByName" resultMap="ScenicMap" parameterType="Scenic">
+      select * from scenic 
+      <where>
+       <if test="sname!=null and sname!=''">
+       and sname like concat('%',#{sname},'%')
+       </if>
+       <if test="address!=null and address!=''">
+       and address like concat('%',#{address},'%')
+       </if>
+       </where>
+  </select>
+  </mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.xhy.tourism.dao.HotelMapper">
+  <resultMap id="HotelMap" type="com.xhy.tourism.entity.Hotel">
+          <id property="hid" column="hid"/>
+          <result property="hname" column="hname"/>
+          <result property="address" column="address"/>
+          <result property="image" column="image"/>
+          <result property="phone" column="phone"/>
+          <result property="remark" column="remark"/>
+          <result property="star" column="star"/>
+           <result property="oldid" column="oldid"/>
+   </resultMap>
+  
+  <select id="finAllHotels" resultMap="HotelMap">
+    select * from hotel
+  </select> 
+  
+  <select id="findHotelById"  resultMap="HotelMap">
+    select * from hotel where hid=#{hid}
+  </select>
+
+   <insert id="addHotel" parameterType="Hotel">
+     insert into hotel (hid,hname,address,image,phone,remark,star)
+     values(#{hid},#{hname},#{address},#{image},#{phone},#{remark},#{star})
+  </insert>
+  <delete id="deleteHotel" parameterType="Hotel">
+     delete from hotel where hid=#{hid}
+  </delete>
+  
+   <update id="updateHotel" parameterType="Hotel">
+       update hotel set hid=#{hid},hname=#{hname},address=#{address},image=#{image},
+       phone=#{phone},remark=#{remark},star=#{star}
+       where hid=#{oldid}
+  </update>
+  
+  <!-- 分页  -->
+    <select id="searchStudentsByPage" resultMap="HotelMap" parameterType="java.util.Map">
+   select * from hotel limit #{startRow},#{PageSize}
+  </select>
+  
+  <select id="findUserByNameLike" resultMap="HotelMap" parameterType="String">
+      select * from hotel where hid = #{hid} and hname=#{hname} 
+  </select>
+  <!-- 模糊查询 -->
+  <select id="findByName" resultMap="HotelMap" parameterType="Hotel">
+      select * from hotel 
+      <where>
+       <if test="hname!=null and hname!=''">
+       and hname like concat('%',#{hname},'%')
+       </if>
+       <if test="address!=null and address!=''">
+       and address like concat('%',#{address},'%')
+       </if>
+       </where>
+  </select>
+  </mapper>

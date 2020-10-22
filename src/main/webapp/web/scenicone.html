@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景区</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/iconfont.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/vue.js" type="text/javascript"></script>
+	<script src="js/vue-resource-1.3.4.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/hotel.css">
+</head>
+
+<body>
+    <header id="header">
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li><a href="#" @click.prevent="inde">首页</a></li>
+            <li class="active"><a href="#">目的地</a></li>
+            <li><a href="#">旅游攻略</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    去旅行<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">自由行</a></li>
+                    <li><a href="#">跟团游</a></li>
+                    <li><a href="#">当地游</a></li>
+                </ul>
+            </li>
+            <li><a href="#">机票火车票</a></li>
+            <li><a href="#" @click.prevent="djd">订酒店</a></li>
+            <li> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    社区<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">问答</a></li>
+                    <li><a href="#">周边</a></li>
+                    <li><a href="#">结伴</a></li>
+                </ul>
+            </li>
+             <li><a href="login.html" v-if="flag">登录</a></li>
+      <li><a href="register.html" v-if="flag">注册</a></li>
+      <li><a href="#" @click.prevent="person"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
+        </ul>
+    </header>
+    <article class="container" style="margin-top: 30px;" id="hotel">
+        <h3>查询景区</h3>
+        <!-- 表单 -->
+        <form class="form-inline" style="margin-top: 20px;">
+            <div class="form-group">
+                <input type="text" class="form-control" id="hnmae" v-model="hname" placeholder="快输入景区名吧">
+            </div>
+            <div class="form-group" style="margin-left: 15px;">
+                <input type="email" class="form-control" id="haddress" v-model="haddress" placeholder="快输入目的地吧">
+            </div>
+            <button type="button" class="btn btn-default" id="hotelbtn" style="background-color: tomato;" @click="find">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-search"></use>
+                </svg>
+            </button>
+        </form>
+        <!-- 三个看的 -->
+        <div class="container row" style="margin-top: 56px;">
+            <div class="col-md-4">
+                <div class="" style="float: left;">
+                    <svg class="icon" aria-hidden="true" style="font-size: 58px;">
+                        <use xlink:href="#icon-gonglve"></use>
+                    </svg>
+                </div>
+                <div class="" style="float: left;margin-left: 10px;">
+                    <p style="font-size: 16px;">景区攻略</p>
+                    <p>区域攻略到特色主题，应有尽有</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="" style="float: left;">
+                    <svg class="icon" aria-hidden="true" style="font-size: 58px;">
+                        <use xlink:href="#icon-qianbao3"></use>
+                    </svg>
+                </div>
+                <div class="" style="float: left;margin-left: 10px;">
+                    <p style="font-size: 16px;">专享价格</p>
+                    <p>多平台价格对比，天天专享特惠</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="" style="float: left;">
+                    <svg class="icon" aria-hidden="true" style="font-size: 58px;">
+                        <use xlink:href="#icon-wode"></use>
+                    </svg>
+                </div>
+                <div class="" style="float: left;margin-left: 10px;">
+                    <p style="font-size: 16px;">真实点评</p>
+                    <p>超过100万真实用户点评和游记</p>
+                </div>
+            </div>
+        </div>
+        <!-- 搜索出来的 -->
+            <div class="conainer sy" v-if="flag"> 
+             <div class="syhotel_box container" v-for="(v,i) in list">
+                <div class="col-md-4 syhotel_box_ty">
+                    <img :src="v.image" width="330px" height="240px" style="border-radius: 10px;" alt="图片无法加载">
+                </div>
+                <div class="col-md-4 syhotel_box_ty syhotel_title">
+                    <h4><a>{{v.sname}}</a></h4>
+                    <p class="syhotel_titleyc">Vienna International Hotel</p>
+                    <div class="syhotel_titleyc_pj">
+                        <ul class="syhotel_titleyc_li">
+                            <li class="titleyc_li_pf">8.6分<div class="border_pf"></div>
+                            </li>
+                            <li><a href="#" class="titleyc_li_a"><span style="color: orange;">168</span>条评价</a></li>
+                            <li><a href="#" class="titleyc_li_a"
+                                    style="border-left: 1px  #aaaaaa solid; padding-left: 10px;"><span
+                                        style="color: orange;">1篇</span>游记提及</a></li>
+                        </ul>
+                        <p>{{v.introduction}}</p>
+                    </div>
+                    <div class="syhotel_address">
+                       <svg class="icon" aria-hidden="true" style="color: orange;vertical-align: 0.3em;">
+                            <use xlink:href="#icon-lvyou1"></use>
+                        </svg>
+                        <span class="syhotel_titleyc address_span">{{v.address}}</span>
+                        <svg class="icon" aria-hidden="true" style="vertical-align: 0.3em;">
+                            <use xlink:href="#icon-lvyouche"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="col-md-4 syhotel_box_ty">
+                    <div class="hda">
+                        <a href="#" class="syhotel_box_ty_a">
+                            <div>
+                                <span>达达优选</span>
+                                <svg class="icon" aria-hidden="true" style="margin-left: 10px; font-size:18px;">
+                                    <use xlink:href="#icon-zhifubao"></use>
+                                </svg>
+                                <svg class="icon" aria-hidden="true" style="margin-right: 50px;font-size:18px;">
+                                    <use xlink:href="#icon-weixinzhifu"></use>
+                                </svg>
+                            </div>
+                            <div><span>￥298</span>起</div>
+                        </a>
+                        <a href="#" class="syhotel_box_ty_a">
+                            <div>
+                                <span>蚂蚁优选</span>
+                                <svg class="icon" aria-hidden="true" style="margin-left: 10px; font-size:18px;">
+                                    <use xlink:href="#icon-zhifubao"></use>
+                                </svg>
+                                <svg class="icon" aria-hidden="true" style="margin-right: 50px;font-size:18px;">
+                                    <use xlink:href="#icon-weixinzhifu"></use>
+                                </svg>
+                            </div>
+                            <div><span>￥298</span>起</div>
+                        </a>
+                        <a href="#" class="syhotel_box_ty_a">
+                            <div>
+                                <span>蟹城</span>
+                                <svg class="icon" aria-hidden="true" style="margin-left: 10px; font-size:18px;">
+                                    <use xlink:href="#icon-zhifubao"></use>
+                                </svg>
+                                <svg class="icon" aria-hidden="true" style="margin-right: 50px;font-size:18px;">
+                                    <use xlink:href="#icon-weixinzhifu"></use>
+                                </svg>
+                            </div>
+                            <div><span>￥278</span>起</div>
+                        </a>
+                        <a href="#" class="syhotel_box_ty_a">
+                            <div>
+                                <span>艺龙</span>
+                                <svg class="icon" aria-hidden="true" style="margin-left: 10px; font-size:18px;">
+                                    <use xlink:href="#icon-zhifubao"></use>
+                                </svg>
+                                <svg class="icon" aria-hidden="true" style="margin-right: 50px;font-size:18px;">
+                                    <use xlink:href="#icon-weixinzhifu"></use>
+                                </svg>
+                            </div>
+                            <div><span>￥268</span>起</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主题住宿 -->
+         <div  id="pcbox" style="display: block;">
+        <div class="container cent_zt_box">
+            <h3 style="text-align: center;">主题景区</h3>
+            <div class="zt_box">
+                <a href="#" class="zt_box_a" id="qssd" style="border-bottom: 5px orange solid; color: orange;">山水好地</a>
+                <a href="#" class="zt_box_a" id="zmqc">周末出游</a>
+                <a href="#" class="zt_box_a" id="lmhh">浪漫花都</a>
+                <a href="#" class="zt_box_a" id="qzjx">亲子优选</a>
+                <a href="#" class="zt_box_a" id="chjj">历史古城</a>
+            </div>
+            <!-- 周末 -->
+            <div class="hotel_box" id="zmqcbox" style="display: none;">
+                <!-- 第一行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hotel1.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>崇明岛</h2>
+                                <p>上海</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hotel2.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>千岛湖</h2>
+                                <p>杭州</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hote3.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>莫干山</h2>
+                                <p>湖州</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hotel4.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>古北水镇</h2>
+                                <p>北京</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hotel5.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>避暑山庄</h2>
+                                <p>承德</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hotel6.jpeg" width="318px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>北戴河</h2>
+                                <p>秦皇岛</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 山水 -->
+            <div class="hotel_box" id="qssdbox" >
+                <!-- 第一行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hs.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>日出</h2>
+                                <p>陕西·华山</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hengshan.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>拜佛·烧香</h2>
+                                <p>湖南·衡山</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/scenicss3.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>桂林山水甲天下</h2>
+                                <p>广西·桂林</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/wgs.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>高山草甸</h2>
+                                <p>江西·武功山</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/scenicss5.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>雪景</h2>
+                                <p>张家界·天门山</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 花海 -->
+            <div class="hotel_box" id="lmhhbox" style="display: none;">
+                <!-- 第一行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/md.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>花中之王</h2>
+                                <p>洛阳·牡丹</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/mh.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>花中之魁</h2>
+                                <p>南京·梅花山</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/hh.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>水中芙蓉</h2>
+                                <p>杭州西湖·荷花</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/dj.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>繁花似锦</h2>
+                                <p>兴安杜鹃花</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/lmhh2.jpeg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>林芝</h2>
+                                <p>中国</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/yjx.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>郁金香</h2>
+                                <p>荷兰</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 亲子 -->
+            <div class="hotel_box" id="qzjxbox" style="display: none;">
+                <!-- 第一行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/qjzx1.jpeg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>三亚</h2>
+                                <p>中国</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/qjzx2.jpeg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>迪士尼</h2>
+                                <p>上海</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/qzjx3.jpeg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>上海</h2>
+                                <p>中国</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/qzjx4.jpeg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>北京四合院</h2>
+                                <p>北京</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 历史 -->
+            <div class="hotel_box" id="chjjbox" style="display: none;">
+                <!-- 第一行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/scenicgc1.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>“南凤凰”</h2>
+                                <p>湘西·凤凰古城</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/pygc.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>“北平遥”</h2>
+                                <p>山西·平遥</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/scenicgc2.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>襄阳古城</h2>
+                                <p>湖北</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="hotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="hotel_box_ul_li">
+                        <a href="#" class="hotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/scenicgc3.jpg" width="318px" height="240px" alt="" class="img">
+                            </div>
+                            <div class="shaw">
+                                <h2>徽州古城</h2>
+                                <p>安徽</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 特价 -->
+        <div class="container cent_zt_boxtj">
+            <h3 style="text-align: center;">特价酒店</h3>
+            <div class="zt_box">
+                <a href="#" class="tj_box_a" id="xg">香港</a>
+                <a href="#" class="tj_box_a" id="cs" style="border-bottom: 5px orange solid; color: orange;">长沙</a>
+                <a href="#" class="tj_box_a" id="bj">北京</a>
+                <a href="#" class="tj_box_a" id="sh">上海</a>
+                <a href="#" class="tj_box_a" id="cd">成都</a>
+            </div>
+            <!-- 特价酒店 -->
+            <div class="tjhotel_box" id="xgbox" style="display: none;">
+                <!-- 第一行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港</p>
+                                <p>J Plus Hotel by YOO</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>迪士尼乐园酒店</p>
+                                <p>Hong Kong</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg4.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港精品酒店</p>
+                                <p>J Plus Hotel by YOO</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港丽酒店</p>
+                                <p> Hotel Hong Kong</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港</p>
+                                <p>J Plus Hotel by YOO</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>迪士尼乐园酒店</p>
+                                <p>Hong Kong</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg4.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港精品酒店</p>
+                                <p>J Plus Hotel by YOO</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjxg5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>香港丽酒店</p>
+                                <p> Hotel Hong Kong</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tjhotel_box" id="csbox">
+                <!-- 第一行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs1.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>维也纳国际酒店</p>
+                                <p>长沙芙蓉广场店</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>长沙慧友美宿</p>
+                                <p>芙蓉广场</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>旺达</p>
+                                <p>长沙</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs4.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>山水时尚酒店</p>
+                                <p>长沙民航店</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>长沙湘遇小筑客栈</p>
+                                <p>xiangyu xiaozhu</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs6.jpg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>香水湾公寓酒店</p>
+                                <p>Xiangshuiwan Apartment Hotel </p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs7.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>湖南圣爵菲斯大酒店</p>
+                                <p>ST-Tropez Hotel</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcs8.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>长沙国金中心亚朵酒店</p>
+                                <p>Atour Hotel(IFS)</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tjhotel_box" id="bjbox"  style="display: none;">
+                <!-- 第一行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj1.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京嘉里大酒店</p>
+                                <p>Kerry Hotel Beijing</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京中国大饭店</p>
+                                <p>China World Hotel</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京贵都大酒店</p>
+                                <p> Guidu Hotel</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京王府半岛酒店</p>
+                                <p>The Peninsula Beijing Hote</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京华尔道夫酒店</p>
+                                <p>Waldorf Astoria Beijing</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj6.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>北京阅微庄四合院宾馆</p>
+                                <p>Beijing Double Happiness Courtyard Hote </p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tjhotel_box" id="shbox"  style="display: none;">
+                <!-- 第一行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjsh1.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>锦江都城经典</p>
+                                <p>Jinjiang Metropolo Hotel Classiq (Shanghai Nanjing East Road The Bund</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjsh2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>上海和平饭店 </p>
+                                <p> Peace Hotel </p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjsh3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>苏荷精选花园别墅酒店</p>
+                                <p>Soho Garden Villa Hotel</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjsh4.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>上海中星君亭酒店</p>
+                                <p>SSAW Boutique Hotel Shanghai Bund</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tjhotel_box" id="cdbox"  style="display: none;">
+                <!-- 第一行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcd1.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>成都吾桐里国际青年旅舍</p>
+                                <p>Wutongli International Youth Hostel</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第二个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcd2.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>成都钓鱼台精品酒店 </p>
+                                <p>Diaoyutai Boutique Hotel Chengdu</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第三个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjbj3.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.9分
+                            </div>
+                            <div class="tjshow">
+                                <p>成都鼓楼智选假日酒店</p>
+                                <p>Holiday Inn Express Chengdu Gulou<</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 第四个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcd4.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>麗枫酒店(成都春熙路店)</p>
+                                <p>Lavande Hotel (Chengdu Chunxi Road)</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- 第二行 -->
+                <ul class="tjhotel_box_ul">
+                    <!-- 第一个 -->
+                    <li class="tjhotel_box_ul_li">
+                        <a href="#" class="tjhotel_box_ul_li_a">
+                            <div style="border-radius: 10px;">
+                                <img src="imags/tjcd5.jpeg" width="240px" height="240px" alt="">
+                            </div>
+                            <div class="tjtop"></div>
+                            <div class="tjtop_span">
+                                8.8分
+                            </div>
+                            <div class="tjshow">
+                                <p>全季酒店(都江堰店)</p>
+                                <p>Ji Hotel (Dujiangyan)</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </article>
+    <footer><div class="footer">
+        <p>关于我们&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;联系我们 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+			人才招聘&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; 商家入住 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+			广告服务&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;友情链接 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;
+			销售联盟 &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;English Site</p>
+		<p>Copyright &copy; 2016-2020 版权所有</p>
+    </div></footer>
+    <script>
+    var isflag = true
+    function setflag(){
+        if (isflag) {
+            $("#pcbox").css("display", "block")
+        } else {
+            $("#pcbox").css("display", "none")
+        }
+    }
+    $(function () {
+        if (isflag) {
+            $("#pcbox").css("display", "block")
+        } else {
+            $("#pcbox").css("display", "none")
+        }
+        $(".zt_box_a").click(function (e) {
+            e.preventDefault();
+            $(this).css({
+                "border-bottom": "5px orange solid",
+                "color": "orange"
+            });
+            $(this).siblings('.zt_box_a').css({
+                "border-bottom": "1px beige solid",
+                "color": "black"
+            });
+            $(".hotel_box").css("display", "none");
+            $("#" + e.currentTarget.id + "box").css("display", "block");
+        })
+        $(".tj_box_a").click(function (e) {
+            e.preventDefault();
+            $(this).css({
+                "border-bottom": "5px orange solid",
+                "color": "orange"
+            });
+            $(this).siblings('.tj_box_a').css({
+                "border-bottom": "1px beige solid",
+                "color": "black"
+            });
+            $(".tjhotel_box").css("display", "none");
+            $("#" + e.currentTarget.id + "box").css("display", "block");
+        })
+
+    })
+var vm = new Vue({
+        	el:"#hotel",
+        	data:{
+        		hname:'',
+        		flag:'',
+        		haddress:'',
+        		list:[],
+        	},
+        	methods:{
+        		 logo() {
+                     this.flag = isflag
+                 },
+        		find(){
+                	 isflag = false
+                     this.flag = isflag
+                     setflag()
+        			this.$http.post("scenic/findByName",{
+        				"sname":this.hname,
+        				"address":this.haddress
+        			}).then(res=>{
+        				this.list=res.body
+        				this.flag=true
+        				console.log(this.list[0].image)
+        			})
+        		},
+        		 mounted() {
+                    this.logo()
+                },
+        	}
+        	})
+    var vmhead = new Vue({
+  	  el:"#header",
+  	  data:{
+  		  flag:true,
+  		  name:''
+  	  },
+  	  methods:{
+  		  logo(){
+  			  var url = window.location.search; 
+        	    if (url.indexOf("?") != -1&&url.substr(6)!="") {
+        	    	console.log(url+"====url")
+        	        this.name = url.substr(6);  
+        	         this.flag=false
+        	    }
+  		  },
+  		  person(){
+  			if(this.name==''){
+  			  alert("还没有登录")
+   		   window.location.href="login.html"
+  			}else{
+  			  window.location.href="personal.html?name="+this.name;
+  			}
+  		  },
+  		  inde(){
+  			if(this.name==''){
+  				window.location.href="/Tourism/";
+  			  }else{
+  				window.location.href="/Tourism/?name="+this.name;
+  			  }
+    	  },
+    	  djd(){
+    		  if(this.name!=''){
+   			     window.location.href="hotelone.html?name="+this.name;
+   		     }else{
+   		    	 window.location.href="hotelone.html";
+   		     }
+          }
+  	  },
+  	  mounted(){
+  		  this.logo()
+  	  }
+    })
+    </script>
+</body>
+
+</html>

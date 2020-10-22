@@ -1,0 +1,98 @@
+@charset "UTF-8";
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#app{ 
+		height: 478px;
+	    width: 100%;
+		background: url(../imags/xuejing.jpg) no-repeat;
+		background-size: 100% 100%;
+		text-align: center;
+		padding-top: 100px;
+	}
+	.box {
+    width: 551px;
+    height: 310px;
+    background-color: whitesmoke;
+    margin: 0px auto;
+    opacity: .9;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #d8d6d6;
+}
+
+.box form {
+    margin-top: 20px;
+}
+
+.left {
+    width: 300px;
+    height: 100%;
+    float: left;
+    margin-left: 10px;
+}
+
+#uid,
+#password,
+#admin{
+    width: 240px;
+    height: 25px;
+    margin-bottom: 20px;
+}
+
+.mesg {
+    margin-left: 29px;
+    color: red;
+    margin-top: 5px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.txhz {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.logbtn {
+    margin-top: 20px;
+    width: 240px;
+    height: 25px;
+    background-color: aqua;
+    line-height: 25px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.logbtn:hover {
+    /*悬浮小手*/
+}
+
+.right {
+    float: left;
+    margin-left: 20px;
+    width: 180px;
+    height: 100%;
+    text-align: center;
+}
+
+button {
+    width: 150px;
+    margin-bottom: 10px;
+    border: none;
+    height: 36px;
+    color: white;
+    line-height: 36px;
+    border-radius: 5px;
+}
+
+.right p {
+    font-size: 12px;
+}
+
+.right a {
+    text-decoration: none;
+    color: #00FFFF;
+}

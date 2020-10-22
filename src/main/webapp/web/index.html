@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>主页</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="web/js/iconfont.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="web/css/index.css">
+</head>
+
+<body>
+
+  <header id="header">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+      <li class="active"><a href="#">首页</a></li>
+      <li><a href="#" @click.prevent="djq">目的地</a></li>
+      <li><a href="#">旅游攻略</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          去旅行<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">自由行</a></li>
+          <li><a href="#">跟团游</a></li>
+          <li><a href="#">当地游</a></li>
+        </ul>
+      </li>
+      <li><a href="#">机票火车票</a></li>
+      <li><a href="#" @click.prevent="djd">订酒店</a></li>
+      <li> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          社区<span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">问答</a></li>
+          <li><a href="#">周边</a></li>
+          <li><a href="#">结伴</a></li>
+        </ul>
+      </li>
+      <li><a href="web/login.html" v-if="flag">登录</a></li>
+      <li><a href="web/register.html" v-if="flag">注册</a></li>
+      <li><a href="#" @click.prevent="person"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{name}}</a></li>
+    </ul>
+  </header>
+  <article>
+    <div class="carousel slid" id="myCarousel" data-ride="carousel" data-interval="2000">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active" data-ride="carousel" ></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+      </ol>
+      <div class="carousel-inner">
+          <div class="item active">
+            <img src="web/imags/5.png" alt="one">
+            <div class="lbt_top">
+              <p><span>7月</span>/July.22</p>走过稻城的春夏秋冬，在香格里拉的星月轮转<p></p>
+            </div>
+            <div class="carousel-caption">图片来自<a href="#">xx</a>，此目的地共收藏<a href="#">xx</a>张图片。本片由<a href="#"
+                style="color: yellow;">xx</a>出品
+            </div>
+          </div>
+          <div class="item">
+            <img src="web/imags/1.png" alt="two">
+            <div class="lbt_top">
+              <p><span>11月</span>/Jul.22</p>走过稻城的春夏秋冬，在香格里拉的星月轮转<p></p>
+            </div>
+            <div class="carousel-caption">
+              图片来自<a href="#">贵州</a>，此目的地共收藏<a href="#">1234</a>张图片。本片由<a href="#" style="color: yellow;">谢大大</a>出品
+            </div>
+          </div>
+          <div class="item">
+            <img src="web/imags/2.png" alt="three">
+            <div class="lbt_top">
+              <p><span>11月</span>/Jul.22</p>走过稻城的春夏秋冬，在香格里拉的星月轮转<p></p>
+            </div>
+            <div class="carousel-caption">
+              图片来自<a href="#">青海</a>，此目的地共收藏<a href="#">12345</a>张图片。本片由<a href="#" style="color: yellow;">托尼</a>出品
+            </div>
+          </div>
+          <div class="item">
+            <img src="web/imags/3.png" alt="four">
+            <div class="lbt_top">
+              <p><span>11月</span>/Jul.22</p>走过稻城的春夏秋冬，在香格里拉的星月轮转<p></p>
+            </div>
+            <div class="carousel-caption">
+              图片来自<a href="#">教堂</a>，此目的地共收藏<a href="#">125</a>张图片。本片由<a href="#" style="color: yellow;">lucky</a>出品
+            </div>
+          </div>
+          <div class="item">
+            <img src="web/imags/4.png" alt="five">
+            <div class="lbt_top">
+              <p><span>11月</span>/Jul.22</p>走过稻城的春夏秋冬，在香格里拉的星月轮转<p></p>
+            </div>
+            <div class="carousel-caption">
+              图片来自<a href="#">亚丁</a>，此目的地共收藏<a href="#">1888</a>张图片。本片由<a href="#" style="color: yellow;">浮生</a>出品
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </article>
+  <article>
+    <nav class="flexnav">
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">自由行</p>
+        <p class="p">旅行就要自在</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-ziyuan13"></use>
+        </svg>
+      </a>
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">跟团游</p>
+        <p class="p">行程透明省心游</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-tubiaozhizuomoban_fangqi"></use>
+        </svg>
+      </a>
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">当地游</p>
+        <p class="p">地道的玩法</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-tubiaozhizuomoban_meishi"></use>
+        </svg>
+      </a>
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">机票</p>
+        <p class="p">特惠一折起</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-ziyouhang"></use>
+        </svg>
+      </a>
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">订酒店</p>
+        <p class="p">给你一个家</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-ziyuan2"></use>
+        </svg>
+      </a>
+      <a class="flexnav_box" href="#">
+        <p class="flexnav_box_p">看景区</p>
+        <p class="p">全景展示</p>
+        <svg class="icon tb" aria-hidden="true">
+          <use xlink:href="#icon-ziyuan4"></use>
+        </svg>
+      </a>
+    </nav>
+    <div class="art_cent container">
+      <!-- 左边列 -->
+      <div class="art_left col-md-3">
+        <div class="logotp"><img src="web/imags/index-link.png" alt="" width="225px"></div>
+        <div class="art_left_cent">
+          <a href="#" class="left_a" style="color: black; font-size: 24px;">旅游家专栏</a>
+          <a href="#" style="color: aqua;line-height: 34px;">专栏首页</a>
+        </div>
+        <!-- 小轮播 -->
+        <div class="art_left_lbt carousel slide" id="myleftlbt" data-ride="carousel" data-interval="4000">
+          <ol class="carousel-indicators" style="top: 42%;height: 12px;">
+            <li data-target="#myleftlbt" data-slide-to="0" class="active" data-ride="carousel"></li>
+            <li data-target="#myleftlbt" data-slide-to="1"></li>
+            <li data-target="#myleftlbt" data-slide-to="2"></li>
+            <li data-target="#myleftlbt" data-slide-to="3"></li>
+            <li data-target="#myleftlbt" data-slide-to="4"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active" style="height: 288px;">
+              <img src="web/imags/leftlbt1.jpeg" alt="First slide">
+              <div class="carousel-caption item_box">
+                <a href="#" style="font-size: 18px; color: black;margin-bottom: 5px;">漫山岛</a>
+                <p>在第二条路上，满眼都是天赋，却偏爱挥霍青山绿水，用自己的方式过小日子，即便强行拖它起来，也得不到结果。</p>
+              </div>
+            </div>
+            <div class="item" style="height: 288px;">
+              <img src="web/imags/leftlbt2.jpeg" alt="Second slide">
+              <div class="carousel-caption item_box">
+                <a href="#" style="font-size: 18px; color: black;">西安：大唐不夜城</a>
+                <p>西安这座曾经的13朝古都，在今天更像旧长安的画皮，城墙完整绵延，一切就像一张唐画的影印本。</p>
+              </div>
+            </div>
+            <div class="item" style="height: 288px;">
+              <img src="web/imags/leftlbt3.jpeg" alt="Third slide">
+              <div class="carousel-caption item_box">
+                <a href="#" style="font-size: 18px; color: black;">夏木尼，小王子的玫瑰城市</a>
+                <p>夏木尼（Chamounix）是法国勃朗峰脚下最著名的小城，《小王子》里的玫瑰城市，世界登山运动的发源地。</p>
+              </div>
+            </div>
+            <div class="item" style="height: 288px;">
+              <img src="web/imags/leftlbt4.jpeg" alt="Third slide">
+              <div class="carousel-caption item_box">
+                <a href="#" style="font-size: 18px; color: black;">暹粒油淋鱼</a>
+                <p>默默等待，鱼上桌，迅速夹一口塞在嘴里——我就像个戒烟多日的老烟枪终于抽上了烟，心里的空洞瞬间被填满了。</p>
+              </div>
+            </div>
+            <div class="item" style="height: 288px;">
+              <img src="web/imags/leftlbt5.jpeg" alt="Third slide">
+              <div class="carousel-caption item_box">
+                <a href="#" style="font-size: 18px; color: black;">胡日尔镇的美术馆</a>
+                <p>我最终从胡日尔的美术馆里带走了一幅画，画的是冬日的萨满岩，是日落时分。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 推荐 -->
+        <div class="art_left_tj">
+          <div class="art_left_cent">
+            <a href="#" class="left_a" style="color: black; font-size: 20px;">旅游推荐</a>
+            <a href="#" style="color: aqua;line-height: 34px;">更多推荐</a>
+          </div>
+          <div class="left_tj">
+            <img src="web/imags/left_tj.jpeg" width="240px" alt="推荐图片无法加载">
+            <a href="#">懒人包，带上就走|江南的烟雨……</a>
+            <div class="left_tj_bt">
+              <p style="line-height: 24px; color: #fff;">自由行攻略</p>
+            </div>
+            <div class="left_tj_bt_jt"></div>
+          </div>
+          <!-- 活动 -->
+          <div class="art_left_tj">
+            <div class="art_left_cent">
+              <a href="#" class="left_a" style="color: black; font-size: 20px;">最新活动</a>
+              <a href="#" style="color: aqua;line-height: 34px;">查看全部</a>
+            </div>
+            <div class="left_tj">
+              <img src="web/imags/hd.jpeg" width="240px" alt="推荐图片无法加载">
+              <a href="#">稻城亚丁自由行攻略|稻城亚丁……</a>
+              <div class="left_tj_bt">
+                <p style="line-height: 24px; color: #fff;">自由行攻略</p>
+              </div>
+              <div class="left_tj_bt_jt"></div>
+            </div>
+          </div>
+          <!-- 资讯 -->
+          <div class="art_left_tj">
+            <h4>最新资讯</h4>
+            <ul class="art_left_tj_zx">
+              <li class="art_left_yc">
+                <span>7月26日</span><a href="#">xxx“云旅游”直播的攻守</a>
+              </li>
+              <li class="art_left_yc">
+                <span>7月26日</span><a href="#">"云战役"</a>
+              </li>
+              <li class="art_left_yc">
+                <span>7月26日</span><a href="#">科技“战疫” ：xxx大数据赋能旅游业</a>
+              </li>
+              <li class="art_left_yc">
+                <span>7月26日</span><a href="#" class="art_left_yc">xxx国庆白领出游偏好调查：超7成在旅途中工作</a>
+              </li>
+              <li class="art_left_yc">
+                <span>7月26日</span><a href="#">陈罡：疫情下旅游业的“守恒与求变”</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- 右边列 -->
+      <div class="art_right col-md-8">
+        <header class="art_right_header">
+          <a href="#" class="rmyj" id="rmyj">热门游记</a>
+          <button class="btn btn-default right_btn" type="button" id="saxuan" style="padding: 0px 10px;">筛选</button>
+          <a href="#" class="zxfb" id="zxfb">最新发表</a>
+          <button class="btn btn-default right_xyj" id="xyj" type="button">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-bi1"></use>
+            </svg>
+            写游记
+          </button>
+        </header>
+        <hr style="height: 10px;">
+        <!-- 热门游记 -->
+        <div class="right_cent" style="display: block;" id="remen">
+          <!-- 第一个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj1.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">桃子第一次来到美丽的泰国</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">这是桃仔的第1次出国，也是我第1次带着陶仔，
+                  还有爸妈一起出去，事先做了很多攻略，
+                  因为是二刷 泰国 ，所以还是比较有信心，但是因为过年的时候出现了疫情，所以全家人都很紧张……</a>
+              </p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">泰国</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">哈拉少</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第二个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj2.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a ycslh">北京最好的20个景点和最有趣的活动（Xmove旅行专家推荐）</a>
+              <p class="cent_item_right_p"><a href="#" class="cent_item_right_p_a">北京 作为
+                  中国 的首都已有800多年的历史了，这里是 中国
+                  过去和过去最美好的遗迹之一。是 中国 文化中心。
+                  游览 北京 主要是为了探索其辉煌的过去，……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">北京</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">幻想曲</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">1008</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第三个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj3.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a ycslh">川进青出318：最美的风景在路上而不是景区（附攻略线路）</a>
+              <p class="cent_item_right_p"><a href="#" class="cent_item_right_p_a">进藏方式：去 西藏 有3种方式，跟团、拼车、自驾。
+                  1是跟团的，价格虽然便宜，方便，有导游照顾，但是不自由。建议是第一次去高原的人跟团的额，导游是专业的人做专业的事情，
+                  万一出现意外对自己也是负责。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">西藏</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">柏树</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">658</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第四个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left"><a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj4.jpg" height="130px" alt=""></a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">重庆，26年后的再次相遇</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">重庆 ，26年前匆匆到过的城市，解放碑、朝 天门 、红岩村、长江 三峡 。。四分之一个世纪后再见，你，还好吗？
+                  2020年6月1日，儿童节，我们出发了。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">重庆</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">明月心</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+        </div> <!-- 热门游记结束 -->
+        <!-- 总游记 -->
+        <div class="right_cent" style="display: none;" id="zsremen">
+          <!-- 第一个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj1.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">桃子第一次来到美丽的泰国</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">这是桃仔的第1次出国，也是我第1次带着陶仔，
+                  还有爸妈一起出去，事先做了很多攻略，
+                  因为是二刷 泰国 ，所以还是比较有信心，但是因为过年的时候出现了疫情，所以全家人都很紧张……</a>
+              </p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">泰国</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">哈拉少</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第二个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj2.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a ycslh">北京最好的20个景点和最有趣的活动（Xmove旅行专家推荐）</a>
+              <p class="cent_item_right_p"><a href="#" class="cent_item_right_p_a">北京 作为
+                  中国 的首都已有800多年的历史了，这里是 中国
+                  过去和过去最美好的遗迹之一。是 中国 文化中心。
+                  游览 北京 主要是为了探索其辉煌的过去，……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">北京</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">幻想曲</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">1008</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第三个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left">
+              <a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj3.jpg" height="130px" alt="">
+              </a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a ycslh">川进青出318：最美的风景在路上而不是景区（附攻略线路）</a>
+              <p class="cent_item_right_p"><a href="#" class="cent_item_right_p_a">进藏方式：去 西藏 有3种方式，跟团、拼车、自驾。
+                  1是跟团的，价格虽然便宜，方便，有导游照顾，但是不自由。建议是第一次去高原的人跟团的额，导游是专业的人做专业的事情，
+                  万一出现意外对自己也是负责。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">西藏</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">柏树</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">658</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第四个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left"><a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj4.jpg" height="130px" alt=""></a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">重庆，26年后的再次相遇</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">重庆 ，26年前匆匆到过的城市，解放碑、朝 天门 、红岩村、长江 三峡 。。四分之一个世纪后再见，你，还好吗？
+                  2020年6月1日，儿童节，我们出发了。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">重庆</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">明月心</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+          <!-- 第五个 -->
+          <div class="reght_cent_item">
+            <div class="reght_cent_item_left"><a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj4.jpg" height="130px" alt=""></a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">重庆，26年后的再次相遇</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">重庆 ，26年前匆匆到过的城市，解放碑、朝 天门 、红岩村、长江 三峡 。。四分之一个世纪后再见，你，还好吗？
+                  2020年6月1日，儿童节，我们出发了。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">重庆</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">明月心</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+           <!-- 第六个 -->
+           <div class="reght_cent_item">
+            <div class="reght_cent_item_left"><a href="#" class="cent_item_left_a">
+                <img src="web/imags/yj4.jpg" height="130px" alt=""></a>
+            </div>
+            <div class="reght_cent_item_right">
+              <a href="#" class="cent_item_right_a">重庆，26年后的再次相遇</a>
+              <p class="cent_item_right_p">
+                <a href="#" class="cent_item_right_p_a">重庆 ，26年前匆匆到过的城市，解放碑、朝 天门 、红岩村、长江 三峡 。。四分之一个世纪后再见，你，还好吗？
+                  2020年6月1日，儿童节，我们出发了。……</a></p>
+              <div class="cent_item_right_dz">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-dizhi"></use>
+                </svg>
+                <a href="#" class="item_right_dz_a">重庆</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode"></use>
+                </svg>
+                <span>by,</span>
+                <a href="#" class="item_right_dz_a">明月心</a>
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-yanjing"></use>
+                </svg>
+                <span style="color:#d6d3d3;">788</span>
+              </div>
+            </div>
+          </div>
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="active"><a href="#" >1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div> <!-- 总游记结束 -->
+        <!-- 筛选 -->
+        <div class="right_cent_sx" style="display: none;" id="saixuan">
+          <div class="right_cent_sx_head">
+            <div class="sx_head_left">目的地</div>
+            <div class="sx_head_right">
+              <div>
+                <input type="text" name="" id="snmae" placeholder="请输入目的地">
+              </div>
+              <div class="sx_head_right_li">
+                <ul>
+                  <li><a href="#" class="right_li_a">上海</a></li>
+                  <li><a href="#" class="right_li_a">海南</a></li>
+                  <li><a href="#" class="right_li_a">北京</a></li>
+                  <li><a href="#" class="right_li_a">香港</a></li>
+                  <li><a href="#" class="right_li_a">澳门</a></li>
+                  <li><a href="#" class="right_li_a">长沙</a></li>
+                  <li><a href="#" class="right_li_a">奥利奥</a></li>
+                  <li><a href="#" class="right_li_a">斯里兰卡</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="right_cent_sx_cent">
+            <div style="float: left;font-size: 20px;">兴趣</div>
+            <div class="right_cent_sx_cent_right">
+              <!-- 第一排 -->
+              <div class="sx-cent_right_dis">
+                <!-- 左边 -->
+                <div class="dis_left">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx1.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">吃遍天下</a></p>
+                    <p>无敌手</p>
+                  </div>
+                </div> <!-- 左边结束 -->
+                <div class="dis_left" style="margin-left: 20px;">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx5.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">带着对象</a></p>
+                    <p>看芳华</p>
+                  </div>
+                </div>
+              </div>
+              <!-- 第二排 -->
+              <div class="sx-cent_right_dis">
+                <!-- 左边 -->
+                <div class="dis_left">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx2.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">姑娘漂亮</a></p>
+                    <p>就是美</p>
+                  </div>
+                </div> <!-- 左边结束 -->
+                <div class="dis_left" style="margin-left: 20px;">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx6.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">带着孩子</a></p>
+                    <p>看世界</p>
+                  </div>
+                </div>
+              </div>
+              <!-- 第三排 -->
+              <div class="sx-cent_right_dis">
+                <!-- 左边 -->
+                <div class="dis_left">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx3.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">登山徒步</a></p>
+                    <p>用脚走</p>
+                  </div>
+                </div> <!-- 左边结束 -->
+                <div class="dis_left" style="margin-left: 20px;">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx7.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">带着父母</a></p>
+                    <p>去远方</p>
+                  </div>
+                </div>
+              </div>
+               <!-- 第四排 -->
+               <div class="sx-cent_right_dis">
+                <!-- 左边 -->
+                <div class="dis_left">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx4.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">独自一人</a></p>
+                    <p>最自由</p>
+                  </div>
+                </div> <!-- 左边结束 -->
+                <div class="dis_left" style="margin-left: 20px;">
+                  <div class="dis_left_tp">
+                    <img src="web/imags/sx8.jpeg" width="130px" alt="">
+                  </div>
+                  <div class="dis_left_nr">
+                    <p style="font-size: 16px;"><a href="#" class="dis_left_nr_a">短途周末</a></p>
+                    <p>散散心</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 筛选结束 -->
+      </div>
+    </div>
+  </article>
+  <script src="web/js/index.js">
+  </script>
+</body>
+
+</html>
